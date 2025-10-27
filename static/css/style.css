@@ -1,0 +1,198 @@
+/* Fonte premium */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+:root{
+  --space-1: .25rem;
+  --space-2: .5rem;
+  --space-3: .75rem;
+  --space-4: 1rem;
+}
+
+body{ font-family:'Inter',sans-serif; }
+
+/* ================= TEMAS ================= */
+body.theme-dark{
+  background:linear-gradient(135deg,#0f172a,#1e293b);
+  color:#f1f5f9;
+}
+body.theme-light{
+  background:#f8fafc;
+  color:#1e293b;
+}
+
+/* Corrige labels e selects no dark */
+body.theme-dark .form-label{ color:#f1f5f9; }
+body.theme-dark .form-select{
+  background-color:#1e293b; color:#f1f5f9; border:1px solid #334155;
+}
+body.theme-dark .form-select option{ background-color:#1e293b; color:#f1f5f9; }
+
+/* ================= HEADER ================= */
+.premium-navbar{
+  background:linear-gradient(90deg,#0f172a,#1e293b);
+  backdrop-filter:blur(6px); box-shadow:0 4px 16px rgba(0,0,0,.4);
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+body.theme-light .premium-navbar{
+  background:linear-gradient(90deg,#e2e8f0,#f8fafc);
+  box-shadow:0 2px 8px rgba(0,0,0,.1); border-bottom:1px solid #e2e8f0;
+}
+
+/* Logo circular */
+.logo-circle{
+  width:46px;height:46px;border-radius:50%;display:grid;place-items:center;
+  font-size:22px;color:#fff;background:linear-gradient(135deg,#38bdf8,#3b82f6);
+  box-shadow:0 4px 12px rgba(0,0,0,.4);
+}
+body.theme-light .logo-circle{ background:linear-gradient(135deg,#3b82f6,#6366f1); }
+
+/* Branding */
+.brand-title{ font-size:1.3rem;font-weight:700;letter-spacing:.5px;color:#f8fafc; }
+.brand-subtitle{ font-size:.8rem;color:rgba(255,255,255,.75); }
+body.theme-light .brand-title{ color:#1e293b; }
+body.theme-light .brand-subtitle{ color:#475569; }
+
+/* ================= BOTÃO LIMPAR ================= */
+#btnLimpar{ font-weight:600;border-radius:10px;transition:all .2s ease; }
+#btnLimpar:hover{ background-color:#b91c1c;box-shadow:0 4px 12px rgba(239,68,68,.4); }
+
+/* ================= CARDS PREMIUM ================= */
+.premium-card{
+  border-radius:20px;border:none;background:rgba(255,255,255,0.05);
+  backdrop-filter:blur(12px); box-shadow:0 8px 24px rgba(0,0,0,.35);
+  transition:all .25s ease;
+}
+.premium-card:hover{ transform:translateY(-4px); box-shadow:0 12px 32px rgba(0,0,0,.45); }
+
+.premium-header{
+  font-weight:600;font-size:1rem;padding:12px 18px;background:rgba(255,255,255,0.04);
+  border-bottom:1px solid rgba(255,255,255,0.1); color:#e2e8f0;
+}
+body.theme-light .premium-card{
+  background:#ffffff;color:#1e293b;border:1px solid #e2e8f0;box-shadow:0 6px 16px rgba(0,0,0,.08);
+}
+body.theme-light .premium-header{
+  background:#f1f5f9;color:#1e293b;border-bottom:1px solid #e2e8f0;
+}
+
+/* ================= KPIs ================= */
+.kpi-card{
+  display:flex;align-items:center;gap:16px;padding:20px;border-radius:18px;
+  background:linear-gradient(135deg,rgba(56,189,248,.18),rgba(59,130,246,.18));
+  color:#0f172a;backdrop-filter:blur(10px);box-shadow:0 6px 18px rgba(0,0,0,.12);
+  transition:transform .2s ease;
+  min-height:110px; /* altura uniforme entre todos os cards */
+}
+body.theme-dark .kpi-card{ color:#f8fafc; box-shadow:0 6px 18px rgba(0,0,0,.4); }
+
+.kpi-card:hover{ transform:scale(1.03); }
+
+.kpi-icon{
+  width:54px;height:54px;border-radius:50%;display:grid;place-items:center;font-size:26px;
+  background:rgba(255,255,255,0.12);
+}
+
+.kpi-body{ min-width:0; flex:1; }           /* garante truncamento consistente */
+.kpi-body .kpi-label{ font-size:.85rem;color:#475569; }
+body.theme-dark .kpi-body .kpi-label{ color:#cbd5e1; }
+
+/* Tamanho padrão GRANDE no desktop (todos iguais) */
+.kpi-body .kpi-value{
+  line-height:1.05;
+  font-weight:700;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+  font-size:1.8rem;
+}
+
+/* Ajuste responsivo: tablets/phones usam clamp */
+@media (max-width: 991.98px){
+  .kpi-body .kpi-value{ font-size:clamp(1.1rem, 4.5vw, 1.6rem); }
+}
+
+/* Light override */
+body.theme-light .kpi-card{
+  background:linear-gradient(135deg,rgba(59,130,246,.12),rgba(99,102,241,.12));
+  color:#1e293b; box-shadow:0 4px 10px rgba(0,0,0,.08);
+}
+body.theme-light .kpi-body .kpi-label{ color:#475569; }
+body.theme-light .kpi-body .kpi-value{ color:#1e293b; }
+
+/* ================= GRÁFICOS ================= */
+.chart-box{ min-height:340px; }
+#grafByMonth,#grafByYear,#grafSex,#grafAge,#grafCidTop{ width:100%; }
+
+/* ================= TABELAS ================= */
+.table{ border-radius:12px; overflow:hidden; }
+.table thead th{ font-weight:600;text-transform:uppercase;font-size:0.75rem;letter-spacing:.5px; }
+.table td,.table th{ vertical-align:middle; }
+
+/* Dark override */
+body.theme-dark .table{ color:#f1f5f9;background-color:#1e293b; }
+body.theme-dark .table thead{ background-color:#334155; }
+body.theme-dark .table-striped tbody tr:nth-of-type(odd){ background-color:rgba(255,255,255,.05); }
+
+/* Light override */
+body.theme-light .table{ color:#1e293b;background-color:#fff; }
+body.theme-light .table thead{ background-color:#f1f5f9; }
+body.theme-light .table-striped tbody tr:nth-of-type(odd){ background-color:#f8fafc; }
+
+/* tabela responsiva extra em telas pequenas */
+.table-responsive-mobile{ overflow-x:auto; -webkit-overflow-scrolling:touch; }
+
+/* ================= FABs (botões flutuantes) ================= */
+.fab-container{
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 1080;              /* acima de charts/modebar e do footer */
+  pointer-events: none;       /* evita bloquear cliques no conteúdo */
+}
+.fab-btn{
+  pointer-events: auto;       /* reabilita clique nos botões */
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 24px rgba(0,0,0,.35);
+  border: 0;
+}
+.fab-btn i{ font-size: 1.25rem; }
+
+/* Ajustes mobile */
+@media (max-width: 575.98px){
+  .fab-container{ right: 14px; bottom: 14px; gap: 10px; }
+  .fab-btn{ width: 52px; height: 52px; }
+}
+
+/* =================== MOBILE TWEAKS =================== */
+@media (max-width: 575.98px){
+  main.container{ padding-left: var(--space-3); padding-right: var(--space-3); }
+
+  /* header mais compacto */
+  .brand-title{ font-size:1.1rem; }
+  .brand-subtitle{ display:none; }
+
+  /* filtros mais densos */
+  #filtersBar .form-label{ font-size:.9rem; }
+  #filtersBar .form-select{ font-size:.95rem; }
+  #filtersBar .card-body{ padding: var(--space-3); }
+
+  /* kpis e ícones menores */
+  .kpi-card{ padding:14px; gap:12px; }
+  .kpi-icon{ width:42px; height:42px; font-size:20px; }
+
+  /* gráficos mais baixos */
+  .chart-box{ min-height:260px; }
+  .premium-header{ font-size:.95rem; padding:10px 14px; }
+
+  .premium-card{ border-radius:16px; }
+}
+
+@media (min-width: 576px) and (max-width: 991.98px){
+  .chart-box{ min-height:300px; }
+}

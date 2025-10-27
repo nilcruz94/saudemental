@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+{% block title %}Dashboard - Saúde Mental{% endblock %}
+{% block content %}
+
+<!-- Ajustes locais: evitar sobreposição da modebar e garantir truncamento -->
+<style>
+  .chart-box{ position:relative; padding-top:8px; }
+  .chart-box .modebar{ top:8px !important; right:8px !important; }
+  .kpi-body{ min-width:0; }
+  .kpi-body .kpi-value{ display:block; }
+  @media (max-width:575.98px){
+    .chart-box .modebar{ transform:scale(.95); }
+  }
+</style>
+
+<!-- Filtros -->
+<div class="card premium-card mb-4" id="filtersBar">
+  <div class="card-body py-3">
+    <div class="row g-3 align-items-end">
+      <div class="col-12 col-md-6 col-lg-3">
+        <label for="filtroAno" class="form-label">Ano</label>
+        <select id="filtroAno" class="form-select">
+          <option value="">Todos</option>
+          {% for a in anos %}
+          <option value="{{ a }}">{{ a }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="col-12 col-md-6 col-lg-3">
+        <label for="filtroMes" class="form-label">Mês</label>
+        <select id="filtroMes" class="form-select">
+          <option value="">Todos</option>
+          <option value="1">Janeiro</option>
+          <option value="2">Fevereiro</option>
+          <option value="3">Março</option>
+          <option value="4">Abril</option>
+          <option value="5">Maio</option>
+          <option value="6">Junho</option>
+          <option value="7">Julho</option>
+          <option value="8">Agosto</option>
+          <option value="9">Setembro</option>
+          <option value="10">Outubro</option>
+          <option value="11">Novembro</option>
+          <option value="12">Dezembro</option>
+        </select>
+      </div>
+
+      <div class="col-12 col-lg-4">
+        <label for="filtroCid" class="form-label">CID</label>
+        <select id="filtroCid" class="form-select">
+          <option value="">Todos</option>
+          {% for cid, desc in cids.items() %}
+          <option value="{{ cid }}">{{ cid }} – {{ desc }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="col-12 col-md-6 col-lg-2 d-grid">
+        <button id="btnLimpar" class="btn btn-danger text-white">
+          <i class="bi bi-arrow-counterclockwise me-1"></i> Limpar filtros
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- KPIs -->
+<div class="row row-cols-2 row-cols-lg-4 g-3 mb-4">
+  <div class="col">
+    <div class="kpi-card h-100">
+      <div class="kpi-icon"><i class="bi bi-hospital"></i></div>
+      <div class="kpi-body flex-grow-1 min-w-0">
+        <div class="kpi-label">Internações</div>
+        <div class="kpi-value" id="kpiInternacoes">–</div>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="kpi-card h-100">
+      <div class="kpi-icon"><i class="bi bi-stopwatch"></i></div>
+      <div class="kpi-body flex-grow-1 min-w-0">
+        <div class="kpi-label">Média de Dias</div>
+        <div class="kpi-value" id="kpiMediaDias">–</div>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="kpi-card h-100">
+      <div class="kpi-icon"><i class="bi bi-heartbreak"></i></div>
+      <div class="kpi-body flex-grow-1 min-w-0">
+        <div class="kpi-label">Óbitos</div>
+        <div class="kpi-value" id="kpiObitos">–</div>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="kpi-card h-100">
+      <div class="kpi-icon"><i class="bi bi-cash-coin"></i></div>
+      <div class="kpi-body flex-grow-1 min-w-0">
+        <div class="kpi-label">Valor Total (R$)</div>
+        <div class="kpi-value" id="kpiValor">–</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Gráficos -->
+<div class="row g-4">
+  <div class="col-12 col-lg-6">
+    <div class="card premium-card h-100">
+      <div class="card-header premium-header">Internações por Ano</div>
+      <div class="card-body"><div id="grafByYear" class="chart-box"></div></div>
+    </div>
+  </div>
+
+  <div class="col-12 col-lg-6">
+    <div class="card premium-card h-100">
+      <div class="card-header premium-header">Distribuição Mensal (do ano selecionado)</div>
+      <div class="card-body"><div id="grafByMonth" class="chart-box"></div></div>
+    </div>
+  </div>
+
+  <div class="col-12 col-lg-6">
+    <div class="card premium-card h-100">
+      <div class="card-header premium-header">Distribuição por Sexo</div>
+      <div class="card-body"><div id="grafSex" class="chart-box"></div></div>
+    </div>
+  </div>
+
+  <div class="col-12 col-lg-6">
+    <div class="card premium-card h-100">
+      <div class="card-header premium-header">Faixas Etárias</div>
+      <div class="card-body"><div id="grafAge" class="chart-box"></div></div>
+    </div>
+  </div>
+
+  <div class="col-12">
+    <div class="card premium-card">
+      <div class="card-header premium-header">Top 10 Diagnósticos (CID-10)</div>
+      <div class="card-body">
+        <div id="grafCidTop" class="chart-box"></div>
+        <div id="tabelaCidTop" class="mt-3 table-responsive-mobile"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
